@@ -3,6 +3,13 @@ server:
 spring:
   application:
     name: config-server
-  profiles:
-    active:
-    - native
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/rodrigo-lucio/curso-microservices-spring-boot-cloud
+          #username: xxx
+          #password: xxx
+          default-label: main
+          search-paths:
+            - 'greeting*'
