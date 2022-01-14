@@ -11,6 +11,6 @@ management:
 
 greeting-service:
   greeting: "Teste alt"
-  default-value: "Valor default perf alt"
+  default-value: "Você esta no profile perf"
 
 

@@ -10,7 +10,7 @@ management:
           - '*'
 
 greeting-service:
-  greeting: "Teste alt"
-  default-value: "Valor default dev alt"
+  greeting: "Dev"
+  default-value: "Você esta no profile dev"
 
 
