@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.lucio.greeting.config.GreetingConfiguration;
+import br.com.lucio.greeting.configuration.GreetingConfiguration;
 import br.com.lucio.greeting.model.Greeting;
 
 @RestController
@@ -17,11 +17,8 @@ public class GreetingController {
     private GreetingConfiguration configuration;
 
     @GetMapping
-    public Greeting greeting(@RequestParam(defaultValue = "") String name){
-        if(name.isEmpty()) {
-            return Greeting.builder().id(1L).content(configuration.getDefaultValue()).build();
-        }
-        return Greeting.builder().id(1L).content(name).build();
+    public Greeting greeting(@RequestParam(defaultValue = "") String name) {
+        if (name.isEmpty()) name = configuration.getDefaultValue();
+        return new Greeting(1l, name);
     }
-
 }

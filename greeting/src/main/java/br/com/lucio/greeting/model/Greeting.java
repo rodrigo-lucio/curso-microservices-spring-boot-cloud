@@ -1,13 +1,13 @@
 package br.com.lucio.greeting.model;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@Builder
+@AllArgsConstructor
 public class Greeting {
-
-    private long id;
-    private String content;
+	
+	private final long id;
+	private final String content;
 
 }
