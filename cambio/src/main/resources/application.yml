@@ -1,5 +1,20 @@
 server:
   port: 8000
 spring:  application:    name: cambio
-  
-  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cambio
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQL95Dialect
+  flyway:
+    url: jdbc:postgresql://localhost:5432/cambio
+    schemas: public
+    user: postgres
+    password: postgres
