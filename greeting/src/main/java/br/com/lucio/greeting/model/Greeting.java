@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Greeting {
 	
-	private final long id;
-	private final String content;
+	private long id;
+	private String content;
 
 }
