@@ -1,2 +1,22 @@
 server:
   port: 8100
+spring:
+  application:
+    name: book
+  datasource:
+    url: jdbc:postgresql://localhost:5432/book?useTimezone=true&serverTimezone=UTC
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQL95Dialect
+  flyway:
+    url: jdbc:postgresql://localhost:5432/book
+    schemas: public
+    user: postgres
+    password: postgres

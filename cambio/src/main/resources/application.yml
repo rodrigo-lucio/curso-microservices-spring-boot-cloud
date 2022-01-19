@@ -2,7 +2,7 @@ server:
   port: 8000
 spring:  application:    name: cambio
   datasource:
-    url: jdbc:postgresql://localhost:5432/cambio
+    url: jdbc:postgresql://localhost:5432/cambio?useTimezone=true&serverTimezone=UTC
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
@@ -14,7 +14,7 @@ spring:  application:    name: cambio
         hibernate:
           dialect: org.hibernate.dialect.PostgreSQL95Dialect
   flyway:
-    url: jdbc:postgresql://localhost:5432/cambio
+    url: jdbc:postgresql://localhost:5432/
     schemas: public
     user: postgres
     password: postgres
