@@ -1,6 +1,7 @@
 package br.com.lucio.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.annotation.Generated;
@@ -42,7 +43,7 @@ public class Book implements Serializable {
 	private Date launchDate;
 	
 	@Column(nullable = false)
-	private Double price;
+	private BigDecimal price;
 	
 	@Column(nullable = false, length = 250)
 	private String title;

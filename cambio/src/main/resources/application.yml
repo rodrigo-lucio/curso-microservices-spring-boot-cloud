@@ -14,7 +14,7 @@ spring:  application:    name: cambio
         hibernate:
           dialect: org.hibernate.dialect.PostgreSQL95Dialect
   flyway:
-    url: jdbc:postgresql://localhost:5432/
+    url: jdbc:postgresql://localhost:5432/cambio
     schemas: public
     user: postgres
     password: postgres
