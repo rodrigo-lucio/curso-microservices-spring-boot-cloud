@@ -33,7 +33,7 @@ public class BookController {
 		
 		var cambio = client.getCambio(book.getPrice(), "USD", currency);
 		
-		book.setEnvironment(port);
+		book.setEnvironment(String.format("Book port: %s - Cambio port: %s", port , cambio.getEnviroment()));
 		book.setPrice(cambio.getConvertedValue());
 		return book;
 	}
