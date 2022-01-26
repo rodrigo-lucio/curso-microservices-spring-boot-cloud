@@ -4,6 +4,12 @@ eureka:  client:    service-url:
       defaultZone: http://localhost:8761/eurekaspring:
   application:
     name: book
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
   datasource:
     url: jdbc:postgresql://localhost:5432/book?useTimezone=true&serverTimezone=UTC
     driver-class-name: org.postgresql.Driver
@@ -22,3 +28,7 @@ eureka:  client:    service-url:
     schemas: public
     user: postgres
     password: postgres
+    
+    
+    
+  
