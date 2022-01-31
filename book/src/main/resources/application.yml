@@ -28,6 +28,12 @@ eureka:  client:    service-url:
     schemas: public
     user: postgres
     password: postgres
+resilience4j:  retry:    instances:      default:
+        max-attempts: 5
+      foo-bar:
+        max-attempts: 6  # Faz 6 tentativas no retry
+        wait-duration: 1s # espera 1 segundo para cada requisiçao
+        enable-exponential-backoff: true # faz as tentativas de forma exponencial, ex: 1s, 2s, 3s.....
     
     
     
