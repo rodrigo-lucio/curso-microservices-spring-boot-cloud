@@ -34,6 +34,12 @@ resilience4j:  retry:    instances:      default:
         max-attempts: 6  # Faz 6 tentativas no retry
         wait-duration: 1s # espera 1 segundo para cada requisiçao
         enable-exponential-backoff: true # faz as tentativas de forma exponencial, ex: 1s, 2s, 3s.....
+  ratelimiter:    instances:
+      default:        limit-for-period: 2
+        limit-refresh-period: 10s   # Só pode fazer duas requisições a cada 10 segundos
+  bulkhead:    instances:      default: 
+        max-concurrent-calls: 1
+   
     
     
     

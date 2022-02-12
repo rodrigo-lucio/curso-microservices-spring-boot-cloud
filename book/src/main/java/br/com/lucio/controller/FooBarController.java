@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,8 +23,11 @@ public class FooBarController {
 	
 	@GetMapping
 	//@Retry(name = "foo-bar", fallbackMethod = "methodWithError") //pode configurar no aplication.yml
-	@CircuitBreaker(name = "foo-bar", fallbackMethod = "methodWithError") 
+	//@CircuitBreaker(name = "foo-bar", fallbackMethod = "methodWithError") 
+	//@RateLimiter(name = "default", fallbackMethod = "methodWithError")
+	@Bulkhead(name = "default", fallbackMethod = "methodWithError")
 	public String fooBar() {
+
 		log.info("Request to foo-bar is received.");
 		var response = new RestTemplate().getForEntity("http://localhost:1234/foo-bar", String.class);
 		return response.getBody();
