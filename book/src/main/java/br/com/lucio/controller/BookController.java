@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import  br.com.lucio.client.CambioClient;
 import br.com.lucio.model.Book;
 import br.com.lucio.repository.BookRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Book Endpoint")
 @RestController
 @RequestMapping("book")
 public class BookController {
@@ -25,6 +28,7 @@ public class BookController {
 	@Autowired
 	private CambioClient client;
 	
+	@Operation(summary = "Find a specifc book by your ID")
 	@GetMapping(value = "/{id}/{currency}")
 	private Book findBook(@PathVariable Long id, @PathVariable String currency) {
 		var port = environment.getProperty("local.server.port");

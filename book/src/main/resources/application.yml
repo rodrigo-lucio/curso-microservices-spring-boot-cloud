@@ -39,6 +39,7 @@ resilience4j:  retry:  # Fica fazendo tentativas de retry    instances:      
         limit-refresh-period: 10s   # Só pode fazer duas requisições a cada 10 segundos
   bulkhead:    instances:      default: 
         max-concurrent-calls: 1
+        
    
     
     
