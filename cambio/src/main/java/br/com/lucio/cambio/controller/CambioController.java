@@ -15,9 +15,11 @@ import br.com.lucio.cambio.model.Cambio;
 import br.com.lucio.cambio.repository.CambioRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 @Tag(name = "Cambio Endpoint")
 @RestController
 @RequestMapping("cambio")
+@Slf4j
 public class CambioController {
 
 	@Autowired
@@ -32,7 +34,7 @@ public class CambioController {
 		var port = enviroment.getProperty("local.server.port");
 		var cambio = repository.findByFromAndTo(from, to)
 				.orElseThrow(() -> new EmptyResultDataAccessException("Currency not found", 1));
-				
+		log.info("getCambio is called with -> {}, {}, {}", amount, from, to);		
 		BigDecimal convertedValue = cambio.getConversionFactor().multiply(amount);
 		cambio.setEnviroment(port);
 		cambio.setConvertedValue(convertedValue.setScale(2, RoundingMode.CEILING));

@@ -28,3 +28,6 @@ spring:  application:    name: cambio
     schemas: public
     user: postgres
     password: postgres
+  sleuth:
+    sampler:
+      probability: 1.0

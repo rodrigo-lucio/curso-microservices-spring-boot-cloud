@@ -8,3 +8,6 @@ eureka:
 spring:  application:    name: api-gateway
   #cloud:  #  gateway:  #    discovery:  #      locator:  #        enabled: true
   #        lower-case-service-id: true
+  sleuth:
+    sampler:
+      probability: 1.0
