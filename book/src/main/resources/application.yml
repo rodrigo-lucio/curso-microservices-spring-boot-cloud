@@ -28,6 +28,8 @@ eureka:  client:    service-url:
     schemas: public
     user: postgres
     password: postgres
+  sleuth:
+    sampler:      probability: 1.0
 resilience4j:  retry:  # Fica fazendo tentativas de retry    instances:      default:
         max-attempts: 5
       foo-bar:
