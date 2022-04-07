@@ -24,8 +24,7 @@ spring:  application:    name: cambio
         hibernate:
           dialect: org.hibernate.dialect.PostgreSQL95Dialect
   flyway:
-    url: jdbc:postgresql://localhost:5432/cambio
-    schemas: public
+    url: jdbc:postgresql://localhost:5432/cambio?useTimezone=true&serverTimezone=UTC
     user: postgres
     password: postgres
   sleuth:

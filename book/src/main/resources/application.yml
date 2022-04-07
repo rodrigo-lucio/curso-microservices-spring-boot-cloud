@@ -24,8 +24,7 @@ eureka:  client:    service-url:
         hibernate:
           dialect: org.hibernate.dialect.PostgreSQL95Dialect
   flyway:
-    url: jdbc:postgresql://localhost:5432/book
-    schemas: public
+    url: jdbc:postgresql://localhost:5432/book?useTimezone=true&serverTimezone=UTC
     user: postgres
     password: postgres
   sleuth:
