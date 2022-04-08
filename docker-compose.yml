@@ -1,12 +1,119 @@
 version: '3.4'
 
 services:
-  naming-server:
-    image: rodrigolucio/naming-server:0.0.1-SNAPSHOT
+
+  zipkin:
+    image: openzipkin/zipkin:2.23.2
+    ports:
+      - 9411:9411
+    networks:
+      - lucio-network
+      
+  cambio-db:
+    image: postgres:13
+    restart: always
+    ports:
+      - 5432:5432
+    expose:
+      - 5432      
+    depends_on:
+      - naming-sever     
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=cambio
+    networks:
+      - lucio-network
+      
+  book-db:
+    image: postgres:13
+    restart: always
+    ports:
+      - 5433:5432
+    expose:
+      - 5433
+    depends_on:
+      - naming-sever     
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=book
+    networks:
+      - lucio-network      
+               
+  naming-sever:
+    image: rodrigolucio/naming-sever
+    build:
+      context: .
+      dockerfile: naming-sever/Dockerfile    
     ports:
       - 8761:8761
     networks:
-      - rodrigo-network
+      - lucio-network
+    
+  api-gateway:
+    image: rodrigolucio/api-gateway
+    build:
+      context: .
+      dockerfile: api-gateway/Dockerfile
+    ports:
+      - 8765:8765
+    depends_on:
+      - naming-sever     
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-sever:8761/eureka
+      SPRING.ZIPKIN.BASEURL: http//zipkin:9411
+    networks:
+      - lucio-network
+
+  cambio:
+    image: rodrigolucio/cambio
+    restart: always
+    build:
+      context: .
+      dockerfile: cambio/Dockerfile
+    ports:
+      - 8000:8000
+    depends_on:
+      - naming-sever     
+      - cambio-db
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-sever:8761/eureka
+      SPRING.ZIPKIN.BASEURL: http//zipkin:9411
+      SPRING.DATASOURCE.URL: jdbc:postgresql://cambio-db:5432/cambio?useTimezone=true&serverTimezone=UTC
+      SPRING.DATASOURCE.DRIVER-CLASS-NAME: org.postgresql.Driver
+      SPRING.DATASOURCE.USERNAME: postgres
+      SPRING.DATASOURCE.PASSWORD: postgres
+      SPRING.FLYWAY.URL: jdbc:postgresql://cambio-db:5432/cambio?useTimezone=true&serverTimezone=UTC
+      SPRING.FLYWAY.USER: postgres
+      SPRING.FLYWAY.PASSWORD: postgres	
+    networks:
+      - lucio-network
+ 
+  book:
+    image: rodrigolucio/book
+    restart: always
+    build:
+      context: .
+      dockerfile: book/Dockerfile
+    ports:
+      - 8100:8100
+    depends_on:
+      - naming-sever     
+      - book-db
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-sever:8761/eureka
+      SPRING.ZIPKIN.BASEURL: http//zipkin:9411
+      SPRING.DATASOURCE.URL: jdbc:postgresql://book-db:5432/book?useTimezone=true&serverTimezone=UTC
+      SPRING.DATASOURCE.DRIVER-CLASS-NAME: org.postgresql.Driver
+      SPRING.DATASOURCE.USERNAME: postgres
+      SPRING.DATASOURCE.PASSWORD: postgres
+      SPRING.FLYWAY.URL: jdbc:postgresql://book-db:5432/book?useTimezone=true&serverTimezone=UTC
+      SPRING.FLYWAY.USER: postgres
+      SPRING.FLYWAY.PASSWORD: postgres	
+    networks:
+      - lucio-network      
+      
 networks:
-  rodrigo-network:
+  lucio-network:
     driver: bridge
