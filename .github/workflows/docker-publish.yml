@@ -52,3 +52,14 @@ jobs:
       - name: Docker Compose Build
         working-directory: .
         run: docker-compose build       
+
+      - name: Push to Docker Hub Container Registry
+        run: |
+          docker tag ${{secrets.DOCKER_USERNAME}}/naming-sever:latest ${{secrets.DOCKER_USERNAME}}/naming-sever:${{github.run_id}}
+          docker tag ${{secrets.DOCKER_USERNAME}}/api-gateway:latest ${{secrets.DOCKER_USERNAME}}/api-gateway:${{github.run_id}}
+          docker tag ${{secrets.DOCKER_USERNAME}}/book:latest ${{secrets.DOCKER_USERNAME}}/book:${{github.run_id}}
+          docker tag ${{secrets.DOCKER_USERNAME}}/cambio:latest ${{secrets.DOCKER_USERNAME}}/cambio:${{github.run_id}}
+          docker push ${{secrets.DOCKER_USERNAME}}/naming-sever:${{github.run_id}}
+          docker push ${{secrets.DOCKER_USERNAME}}/api-gateway:${{github.run_id}}
+          docker push ${{secrets.DOCKER_USERNAME}}/book:${{github.run_id}}
+          docker push ${{secrets.DOCKER_USERNAME}}/cambio:${{github.run_id}}
