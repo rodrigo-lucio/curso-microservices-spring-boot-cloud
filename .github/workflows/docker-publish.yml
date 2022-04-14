@@ -26,3 +26,29 @@ jobs:
         with:
           username: ${{secrets.DOCKER_USERNAME}}
           password: ${{secrets.DOCKER_PASSWORD}} 
+          
+      - name: Setup Java JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '16'
+          distribution: 'adopt'           
+          
+      - name: Build Eureka Naming Server Docker image
+        working-directory: ./naming-sever
+        run: mvn clean package -DskipTests
+
+      - name: Build API Gateway Docker image
+        working-directory: ./api-gateway
+        run: mvn clean package -DskipTests
+
+      - name: Build Cambio Service Docker image
+        working-directory: ./cambio
+        run: mvn clean package -DskipTests
+
+      - name: Build Book Service Docker image
+        working-directory: ./book
+        run: mvn clean package -DskipTests
+        
+      - name: Docker Compose Build
+        working-directory: .
+        run: docker-compose build       
