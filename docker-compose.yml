@@ -6,6 +6,18 @@ services:
     image: openzipkin/zipkin:2.23.2
     ports:
       - 9411:9411
+    depends_on:
+      - rabbit-mq
+    environment:
+      RABBIT_URI: amqp://guest:guest@rabbit-mq:5672    
+    networks:
+      - lucio-network
+
+  rabbit-mq:
+    image: rabbitmq:3.8.14-management
+    ports:
+      - 5672:5672
+      - 15672:15672
     networks:
       - lucio-network
       
@@ -60,9 +72,13 @@ services:
       - 8765:8765
     depends_on:
       - naming-sever     
+      - rabbit-mq
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-sever:8761/eureka
-      SPRING.ZIPKIN.BASEURL: http//zipkin:9411
+      SPRING.ZIPKIN.BASEURL: http://zipkin:9411
+      RABBIT_URI: amqp://guest:guest@rabbit-mq:5672    
+      SPRING_rabbit-mq_HOST: rabbit-mq
+      SPRING_ZIPKIN_SENDER_TYPE: rabbit
     networks:
       - lucio-network
 
@@ -77,9 +93,10 @@ services:
     depends_on:
       - naming-sever     
       - cambio-db
+      - rabbit-mq
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-sever:8761/eureka
-      SPRING.ZIPKIN.BASEURL: http//zipkin:9411
+      SPRING.ZIPKIN.BASEURL: http://zipkin:9411
       SPRING.DATASOURCE.URL: jdbc:postgresql://cambio-db:5432/cambio?useTimezone=true&serverTimezone=UTC
       SPRING.DATASOURCE.DRIVER-CLASS-NAME: org.postgresql.Driver
       SPRING.DATASOURCE.USERNAME: postgres
@@ -87,6 +104,9 @@ services:
       SPRING.FLYWAY.URL: jdbc:postgresql://cambio-db:5432/cambio?useTimezone=true&serverTimezone=UTC
       SPRING.FLYWAY.USER: postgres
       SPRING.FLYWAY.PASSWORD: postgres	
+      RABBIT_URI: amqp://guest:guest@rabbit-mq:5672    
+      SPRING_rabbit-mq_HOST: rabbit-mq
+      SPRING_ZIPKIN_SENDER_TYPE: rabbit      
     networks:
       - lucio-network
  
@@ -101,9 +121,10 @@ services:
     depends_on:
       - naming-sever     
       - book-db
+      - rabbit-mq
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-sever:8761/eureka
-      SPRING.ZIPKIN.BASEURL: http//zipkin:9411
+      SPRING.ZIPKIN.BASEURL: http://zipkin:9411
       SPRING.DATASOURCE.URL: jdbc:postgresql://book-db:5432/book?useTimezone=true&serverTimezone=UTC
       SPRING.DATASOURCE.DRIVER-CLASS-NAME: org.postgresql.Driver
       SPRING.DATASOURCE.USERNAME: postgres
@@ -111,6 +132,9 @@ services:
       SPRING.FLYWAY.URL: jdbc:postgresql://book-db:5432/book?useTimezone=true&serverTimezone=UTC
       SPRING.FLYWAY.USER: postgres
       SPRING.FLYWAY.PASSWORD: postgres	
+      RABBIT_URI: amqp://guest:guest@rabbit-mq:5672    
+      SPRING_rabbit-mq_HOST: rabbit-mq
+      SPRING_ZIPKIN_SENDER_TYPE: rabbit
     networks:
       - lucio-network      
       
