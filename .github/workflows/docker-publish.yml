@@ -34,5 +34,5 @@ jobs:
           distribution: 'adopt'           
           
       - name: Build Eureka Naming Server Docker image
-        working-directory: naming-server
+        working-directory: /naming-server
         run: mvn spring-boot:build-image -DskipTests
