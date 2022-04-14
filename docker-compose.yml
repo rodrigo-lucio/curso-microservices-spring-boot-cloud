@@ -1,4 +1,4 @@
-version: '3.4'
+﻿version: '3.4'
 
 services:
 
@@ -103,7 +103,7 @@ services:
       SPRING.DATASOURCE.PASSWORD: postgres
       SPRING.FLYWAY.URL: jdbc:postgresql://cambio-db:5432/cambio?useTimezone=true&serverTimezone=UTC
       SPRING.FLYWAY.USER: postgres
-      SPRING.FLYWAY.PASSWORD: postgres	
+      SPRING.FLYWAY.PASSWORD: postgres
       RABBIT_URI: amqp://guest:guest@rabbit-mq:5672    
       SPRING_rabbit-mq_HOST: rabbit-mq
       SPRING_ZIPKIN_SENDER_TYPE: rabbit      
@@ -131,7 +131,7 @@ services:
       SPRING.DATASOURCE.PASSWORD: postgres
       SPRING.FLYWAY.URL: jdbc:postgresql://book-db:5432/book?useTimezone=true&serverTimezone=UTC
       SPRING.FLYWAY.USER: postgres
-      SPRING.FLYWAY.PASSWORD: postgres	
+      SPRING.FLYWAY.PASSWORD: postgres
       RABBIT_URI: amqp://guest:guest@rabbit-mq:5672    
       SPRING_rabbit-mq_HOST: rabbit-mq
       SPRING_ZIPKIN_SENDER_TYPE: rabbit
