@@ -66,3 +66,4 @@ jobs:
           docker push ${{secrets.DOCKER_USERNAME}}/book:${{github.run_id}}
           docker push ${{secrets.DOCKER_USERNAME}}/book:latest
           docker push ${{secrets.DOCKER_USERNAME}}/cambio:${{github.run_id}}
+          docker push ${{secrets.DOCKER_USERNAME}}/cambio:latest
