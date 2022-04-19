@@ -60,6 +60,9 @@ jobs:
           docker tag ${{secrets.DOCKER_USERNAME}}/book:latest ${{secrets.DOCKER_USERNAME}}/book:${{github.run_id}}
           docker tag ${{secrets.DOCKER_USERNAME}}/cambio:latest ${{secrets.DOCKER_USERNAME}}/cambio:${{github.run_id}}
           docker push ${{secrets.DOCKER_USERNAME}}/naming-sever:${{github.run_id}}
+          docker push ${{secrets.DOCKER_USERNAME}}/naming-sever:latest
           docker push ${{secrets.DOCKER_USERNAME}}/api-gateway:${{github.run_id}}
+          docker push ${{secrets.DOCKER_USERNAME}}/api-gateway:latest
           docker push ${{secrets.DOCKER_USERNAME}}/book:${{github.run_id}}
+          docker push ${{secrets.DOCKER_USERNAME}}/book:latest
           docker push ${{secrets.DOCKER_USERNAME}}/cambio:${{github.run_id}}
