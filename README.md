@@ -2,7 +2,6 @@
 
 - Código do curso "Microservices do 0 com Spring Cloud, Spring Boot e Docker" da Udemy - Prof. Leandro Costa.
 
-
 ## :books: Conteúdos
  - Spring Cloud Configuration;
  - Spring Boot Actuator;
@@ -16,5 +15,5 @@
  - Logs armazenados de forma assincrona no Zipkin, utilizando uma fila no RabbitMQ.
  - Dockerização, entrega contínua com Github Actions, fazendo o build das imagens e publicação no Docker Hub.
 
-☑️ Curso feito com o objetivo de se aprofundar no Spring Cloud, e principalmente sobre os projetos Hystrix, Ribbon, Zuul que foram depreciados, e este curso mostrou as novas implementações que foram o Reslience4J, Spring Cloud Load Balancer e Spring Cloud Gateway, respectivamente.
+☑️ Curso feito com o objetivo de se aprofundar no Spring Cloud, e principalmente procurei entender sobre os módulos Hystrix, Ribbon, Zuul que foram descontinuados, e este curso mostra as novas implementações equivalentes, que foram o Reslience4J, Spring Cloud Load Balancer e Spring Cloud Gateway, respectivamente.
 
